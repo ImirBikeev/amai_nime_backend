@@ -7,5 +7,6 @@ To start backend:
 2) Install librarias:
 
 FastAPI: pip install fastapi["standard"] or pip install "fastapi[standard]"
+
 Uvicorn: pip install uvicorn or uvicorn["standard"] or "uvicorn[standard]"
    

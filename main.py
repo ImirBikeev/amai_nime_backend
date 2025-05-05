@@ -32,8 +32,13 @@ app.add_middleware(
 )
 
 @app.post("/login")
-async def login():
-  pass
+async def login(creds: UserLoginSchema):
+  if creds.user_name == 'admin' and creds.password = '1234':
+    token = ... #токенJWT
+    return {"acess_token": token}
+  raise HTTPException(status_code=401, detail="incorect username or password")
+
+
 
 @app.get("/protected")
 async def protected():

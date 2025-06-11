@@ -1,48 +1,26 @@
-from fastapi import FastAPI, HTTPException, Depends
+from datetime import datetime, timedelta, timezone
+import jwt
+from jwt.exceptions import InvalidTokenError
+from passlib.context import CryptContext
+from fastapi import FastAPI, HTTPException, Depends, status
 from fastapi.middleware.cors import CORSMiddleware
-from src.routers.router import router as router_anime
 from pydantic import BaseModel
-from typing import List, Annotated
-from authx import AuthX, AuthXConfig
+from typing import List, Annotated, Optional
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from src.routers.router import router as router_anime
+from src.auth.router import router as auth_router
 
 app = FastAPI()
 
-config = AuthXConfig()
-config.JWT_SECRET_KEY = "SECRET_KEY"
-config.JWT_ACCESS_COOKIE_NAME = "my_acess_token"
-config.JWT_TOKEN_LOCATION = ["cookies"]
 
-security = Auth(config=config)
-
-class User_Base(BaseModel):
-  user_name: str
-  user_id: int
-
-
-origins = [
-  "*"
-]  
-
+# Middleware CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-@app.post("/login")
-async def login(creds: UserLoginSchema):
-  if creds.user_name == 'admin' and creds.password = '1234':
-    token = ... #токенJWT
-    return {"acess_token": token}
-  raise HTTPException(status_code=401, detail="incorect username or password")
-
-
-
-@app.get("/protected")
-async def protected():
-  pass
-
-
 app.include_router(router_anime)
+app.include_router(auth_router)

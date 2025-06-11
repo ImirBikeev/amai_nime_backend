@@ -1,8 +1,18 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
-from db import Base
+from pydantic import BaseModel
+from typing import Optional
 
-class Users(Base):
-    __tablename__ = 'profile'
-    
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True)
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+class TokenData(BaseModel):
+    username: str | None = None
+
+class User(BaseModel):
+    username: str
+    email: Optional[str] = None
+    full_name: Optional[str] = None
+    disabled: Optional[bool] = None
+
+class UserInDB(User):
+    hashed_password: str

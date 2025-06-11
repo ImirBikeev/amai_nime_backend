@@ -4,7 +4,7 @@ from sqlalchemy.ext.declarative import declarative_base
 
 URL_DATADASE=""
 
-engine = create_engine(URL_DATABASE)
+engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={'check_same_thread': False})
 
 Sessionmaker = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

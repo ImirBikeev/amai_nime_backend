@@ -9,6 +9,8 @@ To start backend:
 FastAPI: pip install fastapi["standard"] or pip install "fastapi[standard]"
 
 Uvicorn: pip install uvicorn or uvicorn["standard"] or "uvicorn[standard]"
+
+pip install sqlmodel ; pip install python-multipart ; pip install pyjwt ; pip install "passlib[bcrypt]" ;
    
 
 
